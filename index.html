@@ -237,6 +237,21 @@ section { padding-block: clamp(56px, 9vw, 112px); }
 .gift:not(.wrapped) .label { opacity: 1; }
 .gift-foot { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; margin-top: 26px; }
 .gift-foot p { color: var(--muted); }
+.sweet-warning {
+  margin-top: 28px;
+  display: flex; gap: 14px; align-items: center;
+  padding: 16px 20px;
+  border: 2px dashed var(--rose);
+  border-radius: 14px;
+  background: repeating-linear-gradient(-45deg, var(--blush) 0 14px, var(--petal) 14px 28px);
+}
+.sweet-warning .sign-icon {
+  flex: none; width: 44px; height: 44px; display: grid; place-items: center;
+  background: var(--rose); color: #fff; border-radius: 50%;
+  font-weight: 700; font-size: 1.5rem; line-height: 1;
+}
+.sweet-warning p { font-weight: 600; color: var(--berry); min-width: 0; }
+.sweet-warning b { color: var(--rose-deep); letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.85rem; display: block; }
 
 /* Free pass */
 .pass-sec { text-align: center; }
@@ -468,6 +483,10 @@ footer a { color: var(--rose-deep); }
       <div class="gift-foot">
         <p id="giftStatus" aria-live="polite">0 of 16 gifts opened</p>
         <button class="btn" id="openAll" type="button">Unwrap everything</button>
+      </div>
+      <div class="sweet-warning" role="note">
+        <span class="sign-icon" aria-hidden="true">!</span>
+        <p><b>Warning</b>Clicking these may make you crave something sweet. It's dangerous. Do it at your own risk.</p>
       </div>
     </div>
   </section>
