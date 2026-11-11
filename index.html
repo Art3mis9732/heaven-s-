@@ -280,6 +280,29 @@ section { padding-block: clamp(56px, 9vw, 112px); }
 .garden-note { margin-top: 18px; color: var(--muted); font-family: var(--display); font-style: italic; font-size: 1.3rem; min-height: 1.6em; }
 
 /* Gifts */
+.gifts-head { display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: flex-start; justify-content: space-between; margin-bottom: 36px; }
+.gifts-head .section-head { margin-bottom: 0; flex: 1 1 380px; min-width: 0; }
+.sticky-note {
+  position: relative;
+  flex: 0 1 300px;
+  margin-top: 18px;
+  padding: 26px 22px 20px;
+  background: #ffe3ec;
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 30px -18px rgba(75, 29, 49, 0.55), 0 2px 0 rgba(255,255,255,0.6) inset;
+  transform: rotate(2.5deg);
+  font-family: var(--hand); font-size: 1.45rem; line-height: 1.25; color: var(--berry);
+  display: grid; gap: 6px;
+}
+.sticky-note .tape {
+  position: absolute; top: -12px; left: 50%; width: 92px; height: 24px;
+  transform: translateX(-50%) rotate(-4deg);
+  background: rgba(226, 87, 127, 0.35);
+  border-left: 2px dotted rgba(255,255,255,0.6); border-right: 2px dotted rgba(255,255,255,0.6);
+}
+.sticky-note .note-title { font-size: 1.75rem; font-weight: 600; color: var(--rose-deep); }
+.sticky-note strong { color: var(--rose-deep); font-weight: 600; text-decoration: underline wavy var(--rose); text-underline-offset: 4px; }
+@media (max-width: 760px) { .sticky-note { flex-basis: 100%; transform: rotate(1.2deg); margin-top: 8px; } }
 .gifts { background: var(--paper); border-block: 1px solid var(--line); }
 .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
 .tab {
@@ -592,10 +615,18 @@ footer a { color: var(--rose-deep); }
 
   <section class="gifts" id="gifts" aria-labelledby="gifts-title">
     <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Your gift table</p>
-        <h2 id="gifts-title">Ice cream, cheesecake and <em>chocolate cake</em></h2>
-        <p>Every one of these is wrapped for you. Tap a gift to untie the ribbon.</p>
+      <div class="gifts-head">
+        <div class="section-head">
+          <p class="eyebrow">Your gift table</p>
+          <h2 id="gifts-title">Ice cream, cheesecake and <em>chocolate cake</em></h2>
+          <p>Every one of these is wrapped for you. Tap a gift to untie the ribbon.</p>
+        </div>
+        <aside class="sticky-note" aria-label="A careful note">
+          <span class="tape" aria-hidden="true"></span>
+          <p class="note-title">Careful, my love!</p>
+          <p>These treats can be <strong>very addictive</strong> and hard to resist once you look at them.</p>
+          <p>So be careful what you open. ♥</p>
+        </aside>
       </div>
       <div class="tabs" role="tablist" aria-label="Gift types">
         <button class="tab" role="tab" type="button" data-filter="all" aria-selected="true">All gifts <span class="n">16</span></button>
