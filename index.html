@@ -294,6 +294,18 @@ section { padding-block: clamp(56px, 9vw, 112px); }
 }
 .wish-form input:focus { outline: 3px solid var(--rose); outline-offset: 2px; }
 .answer { font-family: var(--display); font-size: clamp(1.4rem, 3.4vw, 2rem); font-style: italic; color: var(--rose-deep); min-height: 1.4em; max-width: 36ch; }
+.wish-saved { font-size: 0.9rem; color: var(--muted); min-height: 1.4em; }
+.wishes-panel {
+  width: min(640px, 100%); text-align: left;
+  background: var(--paper); border: 1.5px dashed var(--rose); border-radius: 16px;
+  padding: 20px 22px; display: grid; gap: 10px;
+}
+.wishes-panel h3 { font-size: 1.6rem; font-style: italic; color: var(--rose-deep); }
+.wishes-panel .hint { font-size: 0.85rem; color: var(--muted); }
+.wishes-panel ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.wishes-panel li { border-top: 1px solid var(--line); padding-top: 8px; display: grid; gap: 2px; }
+.wishes-panel li b { font-family: var(--display); font-size: 1.35rem; font-style: italic; font-weight: 600; overflow-wrap: anywhere; }
+.wishes-panel li time { font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
 @media (max-width: 520px) {
   .ticket { grid-template-columns: minmax(0, 1fr) 92px; }
   .ticket::before, .ticket::after { right: 92px; }
@@ -374,6 +386,12 @@ footer a { color: var(--rose-deep); }
         <p>Because there is no <em>yours</em> and <em>mine</em> here.</p>
         <p>It's us, and us always.</p>
         <p class="small">There is no you and I. Both are the same word, because it's us against everything, us with everything, and us through everything.</p>
+      </div>
+
+      <div class="us-lines listen">
+        <p class="small">I can always listen to you, I will always listen to you, and I never get bored of listening to you.</p>
+        <p class="small">Because listening to you, anytime, anywhere, and about anything, feels like an angel speaking to me and gently taking me away into her own little world. There's something so comforting about your voice, and even the simplest things you share bring me a sense of peace.</p>
+        <p><em>I love you.</em></p>
       </div>
 
       <div class="goodnight">
@@ -484,6 +502,13 @@ footer a { color: var(--rose-deep); }
         <button class="btn" type="submit">Use my free pass</button>
       </form>
       <p class="answer" id="answer" aria-live="polite"></p>
+      <p class="wish-saved" id="wishSaved" aria-live="polite"></p>
+
+      <div class="wishes-panel" id="wishesPanel" hidden>
+        <h3>Her free pass wishes</h3>
+        <p class="hint">Only you see this box. Every wish she sends appears here.</p>
+        <ul id="wishList"></ul>
+      </div>
     </div>
   </section>
 </main>
@@ -714,11 +739,73 @@ footer a { color: var(--rose-deep); }
       return;
     }
     ticket.classList.add('used');
-    answer.textContent = `“${wish}.” Consider it done, my love. Take a screenshot and send it to me, and I will do it. ♥`;
+    answer.textContent = `“${wish}.” Consider it done, my love. I will do it. ♥`;
     ambient = 160;
     for (let i = 0; i < 6; i++) setTimeout(() => burst(Math.random() * W, H * 0.4, 50), i * 180);
     burstFrom(ticket, 80);
+    saveWish(wish);
   });
+
+  /* Wishes are saved to the page's shared store when the viewer can write to it.
+     Elsewhere (signed out, no access, or opened outside claude.ai) she is asked for a screenshot. */
+  const savedNote = document.getElementById('wishSaved');
+  let dbRef = null;
+  async function saveWish(wish) {
+    try { localStorage.setItem('heaven-wish', wish); } catch (e) {}
+    if (!dbRef) {
+      savedNote.textContent = 'Take a screenshot of this and send it to me, so I know what to do.';
+      return;
+    }
+    savedNote.textContent = 'Sending your wish to me…';
+    try {
+      await dbRef.collection('wishes').add({ wish, at: new Date().toISOString() });
+      savedNote.textContent = 'Your wish was sent to me. I will see it the next time I open this page. ♥';
+    } catch (err) {
+      savedNote.textContent = 'Your wish could not be sent from here. Take a screenshot and send it to me instead.';
+    }
+  }
+  try {
+    const old = localStorage.getItem('heaven-wish');
+    if (old) {
+      ticket.classList.add('used');
+      answer.textContent = `“${old}.” Consider it done, my love. I will do it. ♥`;
+    }
+  } catch (e) {}
+
+  (async () => {
+    if (!window.claude || !window.claude.use) return;
+    const [db, user] = await Promise.all([claude.use('db'), claude.use('user')]);
+    if (!db) return;
+    dbRef = db;
+    if (!(user && user.isOwner())) return;
+    const panel = document.getElementById('wishesPanel');
+    const list = document.getElementById('wishList');
+    panel.hidden = false;
+    list.innerHTML = '<li>Loading her wishes…</li>';
+    const timer = setTimeout(() => { list.innerHTML = '<li>Her wishes can\'t be reached right now. Try opening the page again later.</li>'; }, 10000);
+    db.collection('wishes').orderBy('at', 'desc').onSnapshot(snap => {
+      if (!snap.metadata.fromCache) clearTimeout(timer);
+      list.textContent = '';
+      if (snap.empty) {
+        const li = document.createElement('li');
+        li.textContent = 'No wish yet. When she uses her free pass, it will show up here.';
+        list.appendChild(li);
+        return;
+      }
+      snap.docs.forEach(d => {
+        const { wish, at } = d.data();
+        const li = document.createElement('li');
+        const b = document.createElement('b'); b.textContent = `“${wish}”`;
+        const t = document.createElement('time'); t.dateTime = at;
+        t.textContent = new Date(at).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
+        li.append(b, t);
+        list.appendChild(li);
+      });
+    }, () => {
+      clearTimeout(timer);
+      list.innerHTML = '<li>Her wishes can\'t be loaded right now.</li>';
+    });
+  })();
 })();
 </script>
 </body>
