@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For Heaven</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="An apology, a garden of flowers and a table full of desserts for Heaven.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&family=Nunito+Sans:wght@400;600;700&family=Caveat:wght@500;600&display=swap">
+<style>
+/* Layout: one long love letter. A blossom hero, a handwritten note, a flower garden, a gift table, and one question at the end. Petals fall over everything. */
+:root {
+  --blush: #fff1f4;
+  --petal: #ffd6e1;
+  --rose: #e2577f;
+  --rose-deep: #b8325c;
+  --berry: #4b1d31;
+  --paper: #fffafb;
+  --leaf: #5f8a63;
+  --muted: #8a5a6c;
+  --line: #f6c3d2;
+  --display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --body: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+  --hand: "Caveat", "Bradley Hand", "Segoe Print", cursive;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--blush);
+  color: var(--berry);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; text-wrap: balance; margin: 0; line-height: 1.05; }
+p { margin: 0; }
+button { font: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; border-radius: 6px; }
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rose-deep);
+}
+section { padding-block: clamp(56px, 9vw, 112px); }
+.section-head { display: grid; gap: 12px; max-width: 640px; margin-bottom: 36px; }
+.section-head h2 { font-size: clamp(2.3rem, 5.5vw, 3.6rem); }
+.section-head h2 em { color: var(--rose); }
+.section-head p { color: var(--muted); }
+
+/* Petal layer */
+#petals { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+
+/* Hero */
+.hero {
+  position: relative;
+  padding-block: 0;
+  min-height: min(92vh, 860px);
+  display: grid;
+  align-items: end;
+  background: var(--petal) url("images/hero.jpg") center / cover no-repeat;
+  overflow: hidden;
+}
+.hero::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,241,244,0) 30%, rgba(255,241,244,0.75) 72%, var(--blush) 100%);
+}
+.hero .wrap { position: relative; z-index: 1; padding-block: 120px 56px; width: 100%; }
+.hero h1 {
+  font-size: clamp(5rem, 20vw, 13rem);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--rose-deep);
+  letter-spacing: -0.02em;
+  line-height: 0.85;
+}
+.hero .sub {
+  font-family: var(--display);
+  font-size: clamp(1.4rem, 3.4vw, 2.1rem);
+  font-style: italic;
+  max-width: 30ch;
+  margin-top: 18px;
+}
+.hero .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 13px 24px;
+  font-weight: 700;
+  background: var(--rose);
+  color: #fff;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  box-shadow: 0 8px 22px -10px rgba(184, 50, 92, 0.7);
+  transition: transform .2s ease, background .2s ease;
+}
+.btn:hover { background: var(--rose-deep); transform: translateY(-2px); }
+.btn.ghost { background: rgba(255,250,251,0.85); color: var(--rose-deep); box-shadow: none; border: 1.5px solid var(--line); }
+.btn.ghost:hover { background: var(--paper); }
+
+/* Letter */
+.letter-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 64px); align-items: center; }
+.letter {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: clamp(28px, 5vw, 56px);
+  box-shadow: 0 30px 60px -40px rgba(75, 29, 49, 0.45);
+  position: relative;
+  background-image: repeating-linear-gradient(180deg, transparent 0 41px, rgba(226, 87, 127, 0.12) 41px 42px);
+  background-position: 0 22px;
+}
+.letter .salutation { font-family: var(--hand); font-size: 2.6rem; color: var(--rose-deep); line-height: 1; margin-bottom: 14px; }
+.letter p { font-family: var(--hand); font-size: 1.65rem; line-height: 42px; color: var(--berry); }
+.letter p + p { margin-top: 0; }
+.letter .sign { text-align: right; margin-top: 20px; color: var(--rose-deep); }
+.stamp {
+  position: absolute; top: -18px; right: 22px;
+  width: 74px; height: 88px;
+  background: url("images/blossom-3.jpg") center / cover;
+  border: 5px solid var(--paper);
+  outline: 1.5px dashed var(--line);
+  transform: rotate(6deg);
+  box-shadow: 0 6px 16px -8px rgba(75,29,49,.5);
+}
+.letter-photo { position: relative; }
+.letter-photo img { border-radius: 200px 200px 12px 12px; aspect-ratio: 4 / 5; object-fit: cover; width: 100%; }
+.letter-photo figcaption { font-family: var(--hand); font-size: 1.5rem; color: var(--muted); text-align: center; margin-top: 10px; }
+
+/* Truths */
+.truths { background: var(--petal); }
+.truth-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 0 40px; }
+.truth-list li {
+  font-family: var(--display);
+  font-size: clamp(1.35rem, 2.6vw, 1.7rem);
+  font-style: italic;
+  padding-block: 16px;
+  border-bottom: 1px solid rgba(184, 50, 92, 0.22);
+  display: flex; gap: 14px; align-items: baseline;
+}
+.truth-list li span { font-family: var(--body); font-style: normal; font-size: 0.8rem; font-weight: 700; color: var(--rose); min-width: 2.2em; font-variant-numeric: tabular-nums; }
+
+/* Garden */
+.garden-bar { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+.counter { font-family: var(--display); font-size: 1.5rem; font-style: italic; }
+.counter b { font-style: normal; font-family: var(--body); font-size: 1.2rem; color: var(--rose-deep); font-variant-numeric: tabular-nums; }
+.masonry { columns: 4 230px; column-gap: 14px; }
+.masonry figure { margin: 0 0 14px; break-inside: avoid; position: relative; border-radius: 14px; overflow: hidden; background: var(--petal); }
+.masonry img { width: 100%; height: auto; transition: transform .6s ease; }
+.masonry figure:hover img { transform: scale(1.04); }
+.masonry figcaption {
+  position: absolute; left: 10px; bottom: 10px;
+  background: rgba(255, 250, 251, 0.9);
+  color: var(--rose-deep);
+  font-family: var(--hand); font-size: 1.25rem; line-height: 1;
+  padding: 6px 12px 7px; border-radius: 999px;
+}
+.garden-note { margin-top: 18px; color: var(--muted); font-family: var(--display); font-style: italic; font-size: 1.3rem; min-height: 1.6em; }
+
+/* Gifts */
+.gifts { background: var(--paper); border-block: 1px solid var(--line); }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+.tab {
+  border: 1.5px solid var(--line); background: var(--blush); color: var(--berry);
+  border-radius: 999px; padding: 9px 18px; font-weight: 700; font-size: 0.95rem;
+}
+.tab[aria-selected="true"] { background: var(--rose); border-color: var(--rose); color: #fff; }
+.tab .n { font-variant-numeric: tabular-nums; opacity: .8; font-weight: 600; margin-left: 4px; }
+.gift-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 18px; }
+.gift {
+  position: relative; border: 0; padding: 0; background: var(--petal);
+  border-radius: 16px; overflow: hidden; aspect-ratio: 4 / 5; text-align: left; color: inherit;
+}
+.gift img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease, filter .6s ease; }
+.gift.wrapped img { filter: saturate(.6) blur(2px); transform: scale(1.06); }
+.gift .paper {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, transparent calc(50% - 11px), var(--rose) calc(50% - 11px) calc(50% + 11px), transparent calc(50% + 11px)),
+    linear-gradient(0deg, transparent calc(50% - 11px), var(--rose) calc(50% - 11px) calc(50% + 11px), transparent calc(50% + 11px)),
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.55) 0 3px, transparent 4px) 0 0 / 26px 26px,
+    rgba(255, 196, 214, 0.78);
+  display: grid; place-items: center;
+  transition: opacity .5s ease, transform .5s ease;
+}
+.gift .bow {
+  font-family: var(--hand); font-size: 1.5rem; color: var(--rose-deep);
+  background: var(--paper); padding: 6px 16px 8px; border-radius: 999px;
+  box-shadow: 0 6px 16px -8px rgba(75,29,49,.6);
+}
+.gift:not(.wrapped) .paper { opacity: 0; transform: scale(1.15) rotate(4deg); pointer-events: none; }
+.gift .label {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 36px 14px 12px;
+  background: linear-gradient(180deg, transparent, rgba(75, 29, 49, 0.78));
+  color: #fff; font-weight: 700; line-height: 1.3;
+  opacity: 0; transition: opacity .5s ease .15s;
+}
+.gift .label small { display: block; font-weight: 400; opacity: .9; }
+.gift:not(.wrapped) .label { opacity: 1; }
+.gift-foot { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; margin-top: 26px; }
+.gift-foot p { color: var(--muted); }
+
+/* Question */
+.ask { text-align: center; }
+.ask-card {
+  max-width: 720px; margin: 0 auto;
+  display: grid; gap: 22px; justify-items: center;
+}
+.ask-card img { width: min(260px, 70%); aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 8px solid var(--paper); box-shadow: 0 20px 40px -24px rgba(75,29,49,.6); }
+.ask h2 { font-size: clamp(2.6rem, 7vw, 4.6rem); font-style: italic; font-weight: 500; }
+.ask .row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.answer { font-family: var(--display); font-size: clamp(1.5rem, 3.5vw, 2.1rem); font-style: italic; color: var(--rose-deep); min-height: 1.4em; max-width: 34ch; }
+
+footer { padding-block: 40px; text-align: center; color: var(--muted); font-size: 0.9rem; }
+footer a { color: var(--rose-deep); }
+
+@media (max-width: 760px) {
+  .letter-grid { grid-template-columns: 1fr; }
+  .letter-photo { max-width: 380px; margin: 0 auto; }
+  .letter p { font-size: 1.45rem; line-height: 38px; }
+  .letter { background-image: repeating-linear-gradient(180deg, transparent 0 37px, rgba(226, 87, 127, 0.12) 37px 38px); }
+  .masonry { columns: 2 140px; column-gap: 10px; }
+  .masonry figure { margin-bottom: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="petals" aria-hidden="true"></canvas>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">A page made only for you</p>
+    <h1>Heaven,</h1>
+    <p class="sub">I'm sorry. And you are the most beautiful girl I have ever known.</p>
+    <div class="cta-row">
+      <a class="btn" href="#letter">Read my letter</a>
+      <a class="btn ghost" href="#gifts">Open your gifts</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="letter">
+    <div class="wrap letter-grid">
+      <article class="letter">
+        <div class="stamp" aria-hidden="true"></div>
+        <p class="salutation">Dear Heaven,</p>
+        <p>I'm sorry. I hurt you, and you deserved so much better from me.</p>
+        <p>You are kind when it's hard, you light up every room without trying, and I should have treated your heart as gently as you treat everyone else's.</p>
+        <p>I can't take it back, but I can promise to listen more, speak softer, and remind you every day how beautiful you are.</p>
+        <p>So here are flowers, cherry blossoms, and every dessert I could find. None of them are as sweet as you.</p>
+        <p class="sign">Forever yours ♥</p>
+      </article>
+      <figure class="letter-photo">
+        <img src="images/peony-1.jpg" alt="Soft pink peonies in full bloom" loading="lazy">
+        <figcaption>the only flower close to you</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="truths" aria-labelledby="truths-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Things that are simply true</p>
+        <h2 id="truths-title">Why you are the <em>most beautiful</em></h2>
+      </div>
+      <ol class="truth-list">
+        <li><span>01</span>Your smile makes bad days forget they were bad.</li>
+        <li><span>02</span>Your eyes hold more light than spring mornings.</li>
+        <li><span>03</span>Your laugh is my favourite sound in the world.</li>
+        <li><span>04</span>You are kind even to people who don't deserve it.</li>
+        <li><span>05</span>You make ordinary places feel like a celebration.</li>
+        <li><span>06</span>You are beautiful in sweatpants and in silk.</li>
+        <li><span>07</span>Cherry blossoms bloom for one week. You bloom all year.</li>
+        <li><span>08</span>Your heart is the softest, bravest thing I know.</li>
+        <li><span>09</span>Your name is Heaven, and it still undersells you.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="garden" aria-labelledby="garden-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Your garden</p>
+        <h2 id="garden-title">Flowers for <em>you</em>, and then more flowers</h2>
+        <p>Roses, peonies and cherry blossoms. Press the button to send another armful.</p>
+      </div>
+      <div class="garden-bar">
+        <p class="counter">Flowers sent so far: <b id="flowerCount">1,000</b></p>
+        <button class="btn" id="moreFlowers" type="button">Send her more flowers</button>
+      </div>
+      <div class="masonry" id="garden-grid">
+        <figure><img src="images/blossom-2.jpg" alt="Pink cherry blossoms against blue sky" loading="lazy"><figcaption>cherry blossoms</figcaption></figure>
+        <figure><img src="images/rose-1.jpg" alt="A bunch of pink garden roses" loading="lazy"><figcaption>pink roses</figcaption></figure>
+        <figure><img src="images/peony-2.jpg" alt="A cloud of blush peonies" loading="lazy"><figcaption>peonies</figcaption></figure>
+        <figure><img src="images/blossom-1.jpg" alt="Cherry tree branches full of blossoms" loading="lazy"><figcaption>sakura</figcaption></figure>
+        <figure><img src="images/rose-3.jpg" alt="Bright pink roses" loading="lazy"><figcaption>more roses</figcaption></figure>
+        <figure><img src="images/peony-4.jpg" alt="Pink peonies in a glass vase" loading="lazy"><figcaption>for your desk</figcaption></figure>
+        <figure><img src="images/rose-2.jpg" alt="Close-up of soft pink roses" loading="lazy"><figcaption>soft as you</figcaption></figure>
+        <figure><img src="images/blossom-4.jpg" alt="Cherry blossoms in sunlight" loading="lazy"><figcaption>spring, for you</figcaption></figure>
+        <figure><img src="images/peony-3.jpg" alt="Close-up of pink peony petals" loading="lazy"><figcaption>petals</figcaption></figure>
+        <figure><img src="images/rose-4.jpg" alt="Pink rose bouquet in a vase" loading="lazy"><figcaption>a bouquet</figcaption></figure>
+        <figure><img src="images/blossom-5.jpg" alt="A canal lined with cherry blossom trees at night" loading="lazy"><figcaption>a blossom walk</figcaption></figure>
+        <figure><img src="images/peony-5.jpg" alt="A pink peony stem" loading="lazy"><figcaption>one perfect peony</figcaption></figure>
+        <figure><img src="images/rose-5.jpg" alt="Pink roses with small hearts" loading="lazy"><figcaption>with love</figcaption></figure>
+        <figure><img src="images/peony-6.jpg" alt="A field of pale pink peonies" loading="lazy"><figcaption>a whole field</figcaption></figure>
+        <figure><img src="images/blossom-3.jpg" alt="Cherry blossoms on a pale sky" loading="lazy"><figcaption>gentle</figcaption></figure>
+      </div>
+      <p class="garden-note" id="gardenNote" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section class="gifts" id="gifts" aria-labelledby="gifts-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Your gift table</p>
+        <h2 id="gifts-title">Ice cream, cheesecake and <em>chocolate cake</em></h2>
+        <p>Every one of these is wrapped for you. Tap a gift to untie the ribbon.</p>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Gift types">
+        <button class="tab" role="tab" type="button" data-filter="all" aria-selected="true">All gifts <span class="n">16</span></button>
+        <button class="tab" role="tab" type="button" data-filter="icecream" aria-selected="false">Ice cream <span class="n">6</span></button>
+        <button class="tab" role="tab" type="button" data-filter="cheesecake" aria-selected="false">Cheesecake <span class="n">5</span></button>
+        <button class="tab" role="tab" type="button" data-filter="chocolate" aria-selected="false">Chocolate cake <span class="n">5</span></button>
+      </div>
+      <div class="gift-grid" id="giftGrid"></div>
+      <div class="gift-foot">
+        <p id="giftStatus" aria-live="polite">0 of 16 gifts opened</p>
+        <button class="btn" id="openAll" type="button">Unwrap everything</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="ask" aria-labelledby="ask-title">
+    <div class="wrap ask-card">
+      <img src="images/blossom-2.jpg" alt="" loading="lazy">
+      <p class="eyebrow">One last thing</p>
+      <h2 id="ask-title">Will you forgive me, Heaven?</h2>
+      <div class="row">
+        <button class="btn" id="yes" type="button">Yes, I forgive you</button>
+        <button class="btn ghost" id="notYet" type="button">Not yet</button>
+      </div>
+      <p class="answer" id="answer" aria-live="polite"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Made with love for Heaven. Photos from <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>.</div>
+</footer>
+
+<script>
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- falling petals ---------- */
+  const cv = document.getElementById('petals');
+  const ctx = cv.getContext('2d');
+  let W = 0, H = 0, dpr = 1;
+  const petals = [];
+  const colors = ['#ffc7d6', '#ffb3c8', '#ffd9e3', '#f79ab5', '#ffe6ec'];
+  function size() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function make(burst, x, y) {
+    const s = 7 + Math.random() * 9;
+    return {
+      x: burst ? x + (Math.random() - 0.5) * 60 : Math.random() * W,
+      y: burst ? y + (Math.random() - 0.5) * 30 : -20 - Math.random() * H,
+      s,
+      vx: burst ? (Math.random() - 0.5) * 6 : -0.3 + Math.random() * 0.9,
+      vy: burst ? -2 - Math.random() * 4 : 0.6 + Math.random() * 1.1,
+      r: Math.random() * Math.PI * 2,
+      vr: (Math.random() - 0.5) * 0.05,
+      sway: Math.random() * Math.PI * 2,
+      c: colors[(Math.random() * colors.length) | 0],
+      burst
+    };
+  }
+  function drawPetal(p) {
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.r);
+    ctx.scale(1, 0.75 + 0.25 * Math.sin(p.sway * 2));
+    ctx.fillStyle = p.c;
+    ctx.beginPath();
+    ctx.moveTo(0, -p.s);
+    ctx.bezierCurveTo(p.s * 0.9, -p.s * 0.8, p.s * 0.8, p.s * 0.6, 0, p.s);
+    ctx.bezierCurveTo(-p.s * 0.8, p.s * 0.6, -p.s * 0.9, -p.s * 0.8, 0, -p.s);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,0.35)';
+    ctx.beginPath();
+    ctx.ellipse(-p.s * 0.2, -p.s * 0.2, p.s * 0.18, p.s * 0.45, 0.3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+  let ambient = 38;
+  function tick() {
+    ctx.clearRect(0, 0, W, H);
+    while (petals.filter(p => !p.burst).length < ambient) petals.push(make(false));
+    for (let i = petals.length - 1; i >= 0; i--) {
+      const p = petals[i];
+      p.sway += 0.02;
+      if (p.burst) { p.vy += 0.08; p.vx *= 0.985; }
+      p.x += p.vx + Math.sin(p.sway) * 0.5;
+      p.y += p.vy;
+      p.r += p.vr;
+      drawPetal(p);
+      if (p.y > H + 30 || p.x < -40 || p.x > W + 40) {
+        if (p.burst) petals.splice(i, 1);
+        else Object.assign(p, make(false), { y: -20 });
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+  function burst(x, y, n = 40) {
+    if (reduce) return;
+    for (let i = 0; i < n; i++) petals.push(make(true, x, y));
+  }
+  function burstFrom(el, n) {
+    const r = el.getBoundingClientRect();
+    burst(r.left + r.width / 2, r.top + r.height / 2, n);
+  }
+  size();
+  window.addEventListener('resize', size);
+  if (!reduce) requestAnimationFrame(tick);
+
+  /* ---------- flowers ---------- */
+  let flowers = 1000;
+  const countEl = document.getElementById('flowerCount');
+  const noteEl = document.getElementById('gardenNote');
+  const notes = [
+    'Another dozen roses, just because you exist.',
+    'Peonies, because they are soft and so are you.',
+    'A whole branch of cherry blossoms for your hair.',
+    'More flowers. I am not stopping.',
+    'The florist knows your name now.',
+    'Every petal says sorry, and every petal says beautiful.',
+    'Somewhere a garden is empty, because it is all here for you.'
+  ];
+  let noteI = 0;
+  document.getElementById('moreFlowers').addEventListener('click', e => {
+    flowers += 100 + Math.floor(Math.random() * 400);
+    countEl.textContent = flowers.toLocaleString('en-US');
+    noteEl.textContent = notes[noteI++ % notes.length];
+    ambient = Math.min(ambient + 12, 140);
+    burstFrom(e.currentTarget, 60);
+  });
+
+  /* ---------- gifts ---------- */
+  const gifts = [
+    ['icecream', 'icecream-1', 'Strawberry and vanilla cone', 'two scoops, both for you'],
+    ['icecream', 'icecream-2', 'Raspberry sorbet in a waffle cone', 'pink, like this whole page'],
+    ['icecream', 'icecream-3', 'Strawberry cones with mint', 'a little party in a cone'],
+    ['icecream', 'icecream-4', 'A bowl of berry ice cream', 'with a spoon, no sharing required'],
+    ['icecream', 'icecream-5', 'Six cones with fresh strawberries', 'one for every day you are mad at me'],
+    ['icecream', 'icecream-6', 'Strawberry sundae', 'fancy, like you'],
+    ['cheesecake', 'cheesecake-1', 'Strawberry cheesecake', 'the classic, done right'],
+    ['cheesecake', 'cheesecake-2', 'Raspberry cheesecake slice', 'creamy, tangy, perfect'],
+    ['cheesecake', 'cheesecake-3', 'A whole strawberry cheesecake', 'not a slice, the whole thing'],
+    ['cheesecake', 'cheesecake-4', 'Vanilla cheesecake', 'quiet and sweet'],
+    ['cheesecake', 'cheesecake-5', 'Blueberry cheesecake', 'in case you want something different'],
+    ['chocolate', 'chocolate-1', 'Black forest chocolate cake', 'three layers, cherries on top'],
+    ['chocolate', 'chocolate-2', 'Chocolate cake with cherries', 'dripping in ganache'],
+    ['chocolate', 'chocolate-3', 'A slice of layered chocolate cake', 'with a fork, ready for you'],
+    ['chocolate', 'chocolate-4', 'Chocolate mousse cake', 'light, rich and a little extra'],
+    ['chocolate', 'chocolate-5', 'Chocolate drip cake', 'because you deserve the whole cake']
+  ];
+  const grid = document.getElementById('giftGrid');
+  const status = document.getElementById('giftStatus');
+  grid.innerHTML = gifts.map(([type, img, name, line], i) => `
+    <button class="gift wrapped" type="button" data-type="${type}" id="gift-${i}" aria-label="Unwrap gift ${i + 1}: ${name}">
+      <img src="images/${img}.jpg" alt="${name}" loading="lazy">
+      <span class="paper"><span class="bow">for Heaven ♥</span></span>
+      <span class="label">${name}<small>${line}</small></span>
+    </button>`).join('');
+  function updateStatus() {
+    const opened = grid.querySelectorAll('.gift:not(.wrapped)').length;
+    status.textContent = opened === gifts.length
+      ? 'All 16 gifts are yours. Every single one.'
+      : `${opened} of ${gifts.length} gifts opened`;
+  }
+  grid.addEventListener('click', e => {
+    const g = e.target.closest('.gift');
+    if (!g || !g.classList.contains('wrapped')) return;
+    g.classList.remove('wrapped');
+    g.setAttribute('aria-label', g.querySelector('img').alt + ', opened');
+    burstFrom(g, 30);
+    updateStatus();
+  });
+  document.getElementById('openAll').addEventListener('click', e => {
+    grid.querySelectorAll('.gift.wrapped').forEach((g, i) => {
+      setTimeout(() => {
+        if (g.hidden) { g.classList.remove('wrapped'); updateStatus(); return; }
+        g.click();
+      }, reduce ? 0 : i * 120);
+    });
+    burstFrom(e.currentTarget, 50);
+  });
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(o => o.setAttribute('aria-selected', String(o === t)));
+    const f = t.dataset.filter;
+    grid.querySelectorAll('.gift').forEach(g => { g.hidden = f !== 'all' && g.dataset.type !== f; });
+  }));
+
+  /* ---------- the question ---------- */
+  const answer = document.getElementById('answer');
+  const notYetLines = [
+    "That's okay. I'll wait, and I'll keep sending flowers.",
+    'Take all the time you need. The ice cream will stay cold.',
+    'I understand. Here is another bouquet while you think.',
+    'Still here. Still sorry. Still think you are beautiful.'
+  ];
+  let ny = 0;
+  document.getElementById('yes').addEventListener('click', e => {
+    answer.textContent = 'Thank you, Heaven. I promise to deserve it. You are my whole spring. ♥';
+    ambient = 160;
+    for (let i = 0; i < 6; i++) setTimeout(() => burst(Math.random() * W, H * 0.4, 50), i * 180);
+    burstFrom(e.currentTarget, 80);
+  });
+  document.getElementById('notYet').addEventListener('click', e => {
+    answer.textContent = notYetLines[ny++ % notYetLines.length];
+    flowers += 250;
+    countEl.textContent = flowers.toLocaleString('en-US');
+    burstFrom(e.currentTarget, 25);
+  });
+})();
+</script>
+</body>
+</html>
