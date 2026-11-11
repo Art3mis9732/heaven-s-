@@ -278,9 +278,9 @@ section { padding-block: clamp(56px, 9vw, 112px); }
 .garden-bar { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; justify-content: space-between; margin-bottom: 28px; }
 .counter { font-family: var(--display); font-size: 1.5rem; font-style: italic; }
 .counter b { font-style: normal; font-family: var(--body); font-size: 1.2rem; color: var(--rose-deep); font-variant-numeric: tabular-nums; }
-.masonry { columns: 4 230px; column-gap: 14px; }
-.masonry figure { margin: 0 0 14px; break-inside: avoid; position: relative; border-radius: 14px; overflow: hidden; background: var(--petal); }
-.masonry img { width: 100%; height: auto; transition: transform .6s ease; }
+.masonry { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.masonry figure { margin: 0; position: relative; border-radius: 14px; overflow: hidden; background: var(--petal); aspect-ratio: 4 / 5; }
+.masonry img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
 .masonry figure:hover img { transform: scale(1.04); }
 .masonry figcaption {
   position: absolute; left: 10px; bottom: 10px;
@@ -455,8 +455,7 @@ footer a { color: var(--rose-deep); }
   .letter-photo { max-width: 380px; margin: 0 auto; }
   .letter p { font-size: 1.45rem; line-height: 38px; }
   .letter { background-image: repeating-linear-gradient(180deg, transparent 0 37px, rgba(226, 87, 127, 0.12) 37px 38px); }
-  .masonry { columns: 2 140px; column-gap: 10px; }
-  .masonry figure { margin-bottom: 10px; }
+  .masonry { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -636,7 +635,8 @@ footer a { color: var(--rose-deep); }
         <figure><img src="images/peony-5.jpg" alt="A pink peony stem" loading="lazy"><figcaption>one perfect peony</figcaption></figure>
         <figure><img src="images/hibiscus-5.jpg" alt="A bright pink hibiscus against a dark background" loading="lazy"><figcaption>midnight hibiscus</figcaption></figure>
         <figure><img src="images/rose-dew.jpg" alt="A single red rose covered in morning dew, blooming on the plant" loading="lazy"><figcaption>with love</figcaption></figure>
-        <figure><img src="images/peony-6.jpg" alt="A field of pale pink peonies" loading="lazy"><figcaption>a whole field</figcaption></figure>
+        <figure><img src="images/red-rose-garden.jpg" alt="A garden bed full of blooming red roses" loading="lazy"><figcaption>a garden of red roses</figcaption></figure>
+        <figure><img src="images/white-rose-garden.jpg" alt="White and peach roses blooming in a green garden" loading="lazy"><figcaption>white roses, growing for you</figcaption></figure>
         <figure><img src="images/blossom-3.jpg" alt="Cherry blossoms on a pale sky" loading="lazy"><figcaption>gentle</figcaption></figure>
       </div>
       <p class="garden-note" id="gardenNote" aria-live="polite"></p>
