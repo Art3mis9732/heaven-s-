@@ -125,9 +125,10 @@ section { padding-block: clamp(56px, 9vw, 112px); }
   background-image: repeating-linear-gradient(180deg, transparent 0 41px, rgba(226, 87, 127, 0.12) 41px 42px);
   background-position: 0 22px;
 }
-.letter .salutation { font-family: var(--hand); font-size: 2.6rem; color: var(--rose-deep); line-height: 1; margin-bottom: 14px; }
+.letter .salutation { font-family: var(--hand); font-size: clamp(1.9rem, 3.4vw, 2.4rem); color: var(--rose-deep); line-height: 1.15; margin-bottom: 18px; max-width: 26ch; }
 .letter p { font-family: var(--hand); font-size: 1.65rem; line-height: 42px; color: var(--berry); }
-.letter p + p { margin-top: 0; }
+.letter p + p { margin-top: 0; text-indent: 1.6em; }
+.letter p.sign { text-indent: 0; }
 .letter .sign { text-align: right; margin-top: 20px; color: var(--rose-deep); }
 .stamp {
   position: absolute; top: -18px; right: 22px;
@@ -142,18 +143,39 @@ section { padding-block: clamp(56px, 9vw, 112px); }
 .letter-photo img { border-radius: 200px 200px 12px 12px; aspect-ratio: 4 / 5; object-fit: cover; width: 100%; }
 .letter-photo figcaption { font-family: var(--hand); font-size: 1.5rem; color: var(--muted); text-align: center; margin-top: 10px; }
 
-/* Truths */
-.truths { background: var(--petal); }
-.truth-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 0 40px; }
-.truth-list li {
-  font-family: var(--display);
-  font-size: clamp(1.35rem, 2.6vw, 1.7rem);
-  font-style: italic;
-  padding-block: 16px;
-  border-bottom: 1px solid rgba(184, 50, 92, 0.22);
-  display: flex; gap: 14px; align-items: baseline;
+/* Night: the second section, a pink-to-plum night sky */
+.night {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #f4a9c0 0%, #b9557e 22%, #5a2147 58%, #2c1230 100%);
+  color: #ffeef3;
 }
-.truth-list li span { font-family: var(--body); font-style: normal; font-size: 0.8rem; font-weight: 700; color: var(--rose); min-width: 2.2em; font-variant-numeric: tabular-nums; }
+#stars { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.night .wrap { position: relative; display: grid; gap: clamp(40px, 7vw, 80px); justify-items: center; text-align: center; }
+.night .eyebrow { color: #ffe3ea; }
+.night h2 { font-size: clamp(2.4rem, 6.5vw, 4.6rem); font-style: italic; font-weight: 500; max-width: 18ch; }
+.night .so-much { font-family: var(--hand); font-size: clamp(2rem, 5vw, 3rem); color: #ffd1de; margin-top: 10px; }
+.stars-line {
+  font-family: var(--display); font-style: italic; font-weight: 600;
+  font-size: clamp(1.9rem, 5vw, 3.3rem); line-height: 1.15; max-width: 24ch;
+  color: #fff6f8; text-shadow: 0 0 28px rgba(255, 190, 210, 0.55);
+}
+.promise { max-width: 640px; display: grid; gap: 18px; font-size: clamp(1.08rem, 2.2vw, 1.25rem); line-height: 1.75; color: #ffe7ee; }
+.us-lines { display: grid; gap: 10px; max-width: 760px; }
+.us-lines p { font-family: var(--display); font-style: italic; font-size: clamp(1.6rem, 4vw, 2.5rem); line-height: 1.2; color: #fff; }
+.us-lines p em { font-style: normal; font-family: var(--hand); color: #ffb8cc; font-size: 1.15em; }
+.us-lines .small { font-size: clamp(1.2rem, 2.8vw, 1.6rem); color: #ffdbe5; }
+.goodnight { display: grid; gap: 6px; font-family: var(--hand); font-size: clamp(1.7rem, 4.2vw, 2.4rem); line-height: 1.25; color: #ffe3ea; }
+.goodnight .moon { font-size: 2.2rem; line-height: 1; }
+.love-drawing { display: grid; justify-items: center; gap: 8px; }
+.love-drawing svg { width: min(340px, 82vw); height: auto; overflow: visible; }
+.love-drawing .stroke { fill: none; stroke: #ffb3c8; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1400; stroke-dashoffset: 0; }
+.love-drawing.drawing .stroke { animation: draw 3.2s ease forwards; }
+.love-drawing .fill { fill: rgba(255, 120, 160, 0.22); }
+.love-drawing .word { font-family: var(--hand); font-size: 30px; fill: #ffd6e1; }
+.love-drawing .mini { fill: #ff8fb0; }
+.love-drawing .big-love { font-family: var(--hand); font-size: clamp(2rem, 6vw, 3.2rem); color: #ffc6d6; letter-spacing: 0.02em; }
+@keyframes draw { from { stroke-dashoffset: 1400; } to { stroke-dashoffset: 0; } }
 
 /* Garden */
 .garden-bar { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; justify-content: space-between; margin-bottom: 28px; }
@@ -216,16 +238,67 @@ section { padding-block: clamp(56px, 9vw, 112px); }
 .gift-foot { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; margin-top: 26px; }
 .gift-foot p { color: var(--muted); }
 
-/* Question */
-.ask { text-align: center; }
-.ask-card {
-  max-width: 720px; margin: 0 auto;
-  display: grid; gap: 22px; justify-items: center;
+/* Free pass */
+.pass-sec { text-align: center; }
+.pass-sec .wrap { display: grid; gap: 26px; justify-items: center; }
+.pass-sec h2 { font-size: clamp(2.6rem, 7vw, 4.6rem); font-style: italic; font-weight: 500; }
+.pass-sec .lede { color: var(--muted); max-width: 46ch; }
+.ticket {
+  position: relative;
+  width: min(640px, 100%);
+  display: grid; grid-template-columns: minmax(0, 1fr) 132px;
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 30px 60px -36px rgba(75, 29, 49, 0.55);
+  text-align: left;
+  overflow: hidden;
 }
-.ask-card img { width: min(260px, 70%); aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 8px solid var(--paper); box-shadow: 0 20px 40px -24px rgba(75,29,49,.6); }
-.ask h2 { font-size: clamp(2.6rem, 7vw, 4.6rem); font-style: italic; font-weight: 500; }
-.ask .row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
-.answer { font-family: var(--display); font-size: clamp(1.5rem, 3.5vw, 2.1rem); font-style: italic; color: var(--rose-deep); min-height: 1.4em; max-width: 34ch; }
+.ticket::before, .ticket::after {
+  content: ""; position: absolute; right: 132px; width: 28px; height: 28px; margin-right: -14px;
+  background: var(--blush); border: 1.5px solid var(--line); border-radius: 50%;
+}
+.ticket::before { top: -15px; }
+.ticket::after { bottom: -15px; }
+.ticket-main { padding: clamp(22px, 4vw, 34px); display: grid; gap: 12px; min-width: 0; }
+.ticket-main .kind { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); }
+.ticket-main h3 { font-size: clamp(2rem, 5vw, 2.8rem); font-style: italic; font-weight: 600; color: var(--rose-deep); }
+.ticket-main .terms { font-family: var(--display); font-size: clamp(1.25rem, 3vw, 1.55rem); font-style: italic; line-height: 1.35; }
+.ticket-main dl { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 6px 0 0; font-size: 0.85rem; color: var(--muted); }
+.ticket-main dt { display: inline; font-weight: 700; color: var(--berry); }
+.ticket-main dd { display: inline; margin: 0 0 0 4px; }
+.ticket-stub {
+  border-left: 2px dashed var(--line);
+  background: var(--petal);
+  display: grid; place-items: center; align-content: center; gap: 4px;
+  font-family: var(--display); color: var(--rose-deep); text-align: center; padding: 12px;
+}
+.ticket-stub .num { font-size: 3.6rem; font-weight: 600; line-height: 1; }
+.ticket-stub .unit { font-size: 0.72rem; font-family: var(--body); font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+.stamp-used {
+  position: absolute; top: 50%; left: 42%;
+  transform: translate(-50%, -50%) rotate(-14deg) scale(1.4);
+  border: 4px solid var(--rose); color: var(--rose);
+  border-radius: 10px; padding: 6px 16px;
+  font-weight: 700; letter-spacing: 0.18em; font-size: 1.3rem;
+  opacity: 0; transition: opacity .35s ease, transform .35s ease; pointer-events: none;
+  background: rgba(255, 250, 251, 0.75);
+}
+.ticket.used .stamp-used { opacity: 1; transform: translate(-50%, -50%) rotate(-14deg) scale(1); }
+.wish-form { width: min(640px, 100%); display: flex; flex-wrap: wrap; gap: 10px; }
+.wish-form label { width: 100%; text-align: left; font-weight: 700; font-size: 0.95rem; }
+.wish-form input {
+  flex: 1 1 240px; min-width: 0;
+  border: 1.5px solid var(--line); border-radius: 999px; background: var(--paper);
+  padding: 13px 20px; font: inherit; color: var(--berry);
+}
+.wish-form input:focus { outline: 3px solid var(--rose); outline-offset: 2px; }
+.answer { font-family: var(--display); font-size: clamp(1.4rem, 3.4vw, 2rem); font-style: italic; color: var(--rose-deep); min-height: 1.4em; max-width: 36ch; }
+@media (max-width: 520px) {
+  .ticket { grid-template-columns: minmax(0, 1fr) 92px; }
+  .ticket::before, .ticket::after { right: 92px; }
+  .ticket-stub .num { font-size: 2.6rem; }
+}
 
 footer { padding-block: 40px; text-align: center; color: var(--muted); font-size: 0.9rem; }
 footer a { color: var(--rose-deep); }
@@ -265,37 +338,66 @@ footer a { color: var(--rose-deep); }
     <div class="wrap letter-grid">
       <article class="letter">
         <div class="stamp" aria-hidden="true"></div>
-        <p class="salutation">Dear Heaven,</p>
-        <p>I'm sorry. I hurt you, and you deserved so much better from me.</p>
-        <p>You are kind when it's hard, you light up every room without trying, and I should have treated your heart as gently as you treat everyone else's.</p>
-        <p>I can't take it back, but I can promise to listen more, speak softer, and remind you every day how beautiful you are.</p>
-        <p>So here are flowers, cherry blossoms, and every dessert I could find. None of them are as sweet as you.</p>
+        <p class="salutation">My dearest wife, my beloved forever, my one and only Tadhana,</p>
+        <p>I want to tell you that I love you so much. You are the most, the purest, the cutest, the sweetest. You are my everything. I love you forever, and I will love you forever.</p>
+        <p>I know it, and I can feel it in my heart: we are together, we have been together, and we are meant to be together forever. We have already been together in all our other lives, and now we have this chance again, to meet again and live a life together. I know that, and I want that.</p>
+        <p>You are my greatest, my everything. I am so proud of you.</p>
+        <p>Please forgive me for the times I was not so kind and acted a little mean to you. I never meant it. I know words alone will not matter, so I will prove it to you with my actions. I am still learning, I want to keep learning, and I will never give up on us, on you, or on any part of you.</p>
+        <p>If any problem comes, I want us to solve it together, like always, instead of running from it, because we are together. No matter what it is, we do things together, always.</p>
+        <p>And I know, deep inside, we are one. We are connected, because you are my everything, and for me, we are always one.</p>
         <p class="sign">Forever yours ♥</p>
       </article>
       <figure class="letter-photo">
-        <img src="images/peony-1.jpg" alt="Soft pink peonies in full bloom" loading="lazy">
-        <figcaption>the only flower close to you</figcaption>
+        <img src="images/rose-single.jpg" alt="A single red rose on a long stem, with its shadow on the wall behind it" loading="lazy">
+        <figcaption>One rose, because there has only ever been one: you. In this life and in every life before it, one love.</figcaption>
       </figure>
     </div>
   </section>
 
-  <section class="truths" aria-labelledby="truths-title">
+  <section class="night" aria-labelledby="night-title">
+    <canvas id="stars" aria-hidden="true"></canvas>
     <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Things that are simply true</p>
-        <h2 id="truths-title">Why you are the <em>most beautiful</em></h2>
+      <div>
+        <p class="eyebrow">For you, Heaven</p>
+        <h2 id="night-title">You are the kindest and bravest soul I have ever met</h2>
+        <p class="so-much">and I love you so, so, so, so much.</p>
       </div>
-      <ol class="truth-list">
-        <li><span>01</span>Your smile makes bad days forget they were bad.</li>
-        <li><span>02</span>Your eyes hold more light than spring mornings.</li>
-        <li><span>03</span>Your laugh is my favourite sound in the world.</li>
-        <li><span>04</span>You are kind even to people who don't deserve it.</li>
-        <li><span>05</span>You make ordinary places feel like a celebration.</li>
-        <li><span>06</span>You are beautiful in sweatpants and in silk.</li>
-        <li><span>07</span>Cherry blossoms bloom for one week. You bloom all year.</li>
-        <li><span>08</span>Your heart is the softest, bravest thing I know.</li>
-        <li><span>09</span>Your name is Heaven, and it still undersells you.</li>
-      </ol>
+
+      <p class="stars-line">I love you more than there are stars in the sky.</p>
+
+      <div class="promise">
+        <p>We are going to go through everything together. Whenever you feel lonely, sad or depressed, or something is bothering you, remember that you always have me, anytime, anywhere.</p>
+        <p>Whatever you are going through, know that I am here with you, always. You don't have to go through your problems alone, even if you think they are only yours.</p>
+      </div>
+
+      <div class="us-lines">
+        <p>Because there is no <em>yours</em> and <em>mine</em> here.</p>
+        <p>It's us, and us always.</p>
+        <p class="small">There is no you and I. Both are the same word, because it's us against everything, us with everything, and us through everything.</p>
+      </div>
+
+      <div class="goodnight">
+        <span class="moon" aria-hidden="true">☾</span>
+        <p>I love you. Goodnight, my cute little girl.</p>
+        <p>You need rest, so sleep well.</p>
+        <p>Sleep like my cute little baby.</p>
+      </div>
+
+      <figure class="love-drawing" id="loveDrawing" aria-label="A hand-drawn heart surrounded by the word love">
+        <svg viewBox="-40 -30 400 360" role="img" aria-hidden="true">
+          <path class="fill" d="M160 300 C 60 230, 0 170, 10 100 C 20 40, 90 10, 135 50 C 148 62, 155 75, 160 88 C 165 75, 172 62, 185 50 C 230 10, 300 40, 310 100 C 320 170, 260 230, 160 300 Z"/>
+          <path class="stroke" d="M160 300 C 60 230, 0 170, 10 100 C 20 40, 90 10, 135 50 C 148 62, 155 75, 160 88 C 165 75, 172 62, 185 50 C 230 10, 300 40, 310 100 C 320 170, 260 230, 162 296"/>
+          <path class="stroke" d="M95 150 c -8 -18, 14 -26, 20 -10 c 6 -16, 28 -8, 20 10 c -6 12, -20 20, -20 20 c 0 0, -14 -8, -20 -20 Z" style="stroke-width:3"/>
+          <path class="stroke" d="M190 170 c -8 -18, 14 -26, 20 -10 c 6 -16, 28 -8, 20 10 c -6 12, -20 20, -20 20 c 0 0, -14 -8, -20 -20 Z" style="stroke-width:3"/>
+          <text class="word" x="160" y="215" text-anchor="middle">Heaven</text>
+          <text class="word" x="-30" y="20" transform="rotate(-18 -30 20)">love</text>
+          <text class="word" x="300" y="10" transform="rotate(16 300 10)">love</text>
+          <text class="word" x="-36" y="290" transform="rotate(12 -36 290)">love</text>
+          <text class="word" x="292" y="300" transform="rotate(-14 292 300)">love</text>
+          <circle class="mini" cx="40" cy="250" r="4"/><circle class="mini" cx="280" cy="250" r="4"/><circle class="mini" cx="160" cy="-10" r="4"/>
+        </svg>
+        <figcaption class="big-love">love love love love</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -352,15 +454,35 @@ footer a { color: var(--rose-deep); }
     </div>
   </section>
 
-  <section class="ask" aria-labelledby="ask-title">
-    <div class="wrap ask-card">
-      <img src="images/blossom-2.jpg" alt="" loading="lazy">
-      <p class="eyebrow">One last thing</p>
-      <h2 id="ask-title">Will you forgive me, Heaven?</h2>
-      <div class="row">
-        <button class="btn" id="yes" type="button">Yes, I forgive you</button>
-        <button class="btn ghost" id="notYet" type="button">Not yet</button>
+  <section class="pass-sec" id="pass" aria-labelledby="pass-title">
+    <div class="wrap">
+      <p class="eyebrow">One last gift</p>
+      <h2 id="pass-title">You earned one free pass</h2>
+      <p class="lede">Use it whenever you want. Whatever you ask for, I will do it.</p>
+
+      <div class="ticket" id="ticket">
+        <div class="ticket-main">
+          <p class="kind">Free pass · For Heaven only</p>
+          <h3>Anything you want</h3>
+          <p class="terms">Let me do anything you want, and I will do it. No questions, no excuses, no take-backs.</p>
+          <dl>
+            <div><dt>Holder</dt><dd>Heaven</dd></div>
+            <div><dt>Valid</dt><dd>Forever</dd></div>
+            <div><dt>Signed</dt><dd>Your husband ♥</dd></div>
+          </dl>
+        </div>
+        <div class="ticket-stub" aria-hidden="true">
+          <span class="num">1</span>
+          <span class="unit">free pass</span>
+        </div>
+        <span class="stamp-used" aria-hidden="true">PROMISED</span>
       </div>
+
+      <form class="wish-form" id="wishForm" autocomplete="off">
+        <label for="wish">What do you want me to do?</label>
+        <input id="wish" name="wish" type="text" maxlength="160" placeholder="Write anything at all">
+        <button class="btn" type="submit">Use my free pass</button>
+      </form>
       <p class="answer" id="answer" aria-live="polite"></p>
     </div>
   </section>
@@ -527,26 +649,75 @@ footer a { color: var(--rose-deep); }
     grid.querySelectorAll('.gift').forEach(g => { g.hidden = f !== 'all' && g.dataset.type !== f; });
   }));
 
-  /* ---------- the question ---------- */
+  /* ---------- night sky stars ---------- */
+  const sc = document.getElementById('stars');
+  const sctx = sc.getContext('2d');
+  let stars = [];
+  function sizeStars() {
+    const r = Math.min(window.devicePixelRatio || 1, 2);
+    const w = sc.clientWidth, h = sc.clientHeight;
+    sc.width = w * r; sc.height = h * r;
+    sctx.setTransform(r, 0, 0, r, 0, 0);
+    const n = Math.round(w * h / 2600);
+    stars = Array.from({ length: n }, () => ({
+      x: Math.random() * w,
+      y: h * 0.12 + Math.random() * h * 0.88,
+      s: Math.random() * 1.6 + 0.4,
+      t: Math.random() * Math.PI * 2,
+      v: 0.01 + Math.random() * 0.03
+    }));
+    drawStars();
+  }
+  function drawStars() {
+    sctx.clearRect(0, 0, sc.width, sc.height);
+    for (const s of stars) {
+      const a = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(s.t));
+      sctx.fillStyle = `rgba(255, 240, 246, ${a})`;
+      sctx.beginPath();
+      sctx.arc(s.x, s.y, s.s, 0, Math.PI * 2);
+      sctx.fill();
+    }
+  }
+  function twinkle() {
+    for (const s of stars) s.t += s.v;
+    drawStars();
+    requestAnimationFrame(twinkle);
+  }
+  sizeStars();
+  window.addEventListener('resize', sizeStars);
+  if (!reduce) requestAnimationFrame(twinkle);
+
+  /* ---------- love drawing: redraw the heart when it scrolls into view ---------- */
+  const drawing = document.getElementById('loveDrawing');
+  if (!reduce && 'IntersectionObserver' in window) {
+    new IntersectionObserver((entries, obs) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          drawing.classList.add('drawing');
+          burstFrom(drawing, 30);
+          obs.disconnect();
+        }
+      });
+    }, { threshold: 0.5 }).observe(drawing);
+  }
+
+  /* ---------- free pass ---------- */
   const answer = document.getElementById('answer');
-  const notYetLines = [
-    "That's okay. I'll wait, and I'll keep sending flowers.",
-    'Take all the time you need. The ice cream will stay cold.',
-    'I understand. Here is another bouquet while you think.',
-    'Still here. Still sorry. Still think you are beautiful.'
-  ];
-  let ny = 0;
-  document.getElementById('yes').addEventListener('click', e => {
-    answer.textContent = 'Thank you, Heaven. I promise to deserve it. You are my whole spring. ♥';
+  const ticket = document.getElementById('ticket');
+  const wishInput = document.getElementById('wish');
+  document.getElementById('wishForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const wish = wishInput.value.trim().replace(/[.!?\s]+$/, '');
+    if (!wish) {
+      answer.textContent = 'Write anything you want first, then press the button.';
+      wishInput.focus();
+      return;
+    }
+    ticket.classList.add('used');
+    answer.textContent = `“${wish}.” Consider it done, my love. Take a screenshot and send it to me, and I will do it. ♥`;
     ambient = 160;
     for (let i = 0; i < 6; i++) setTimeout(() => burst(Math.random() * W, H * 0.4, 50), i * 180);
-    burstFrom(e.currentTarget, 80);
-  });
-  document.getElementById('notYet').addEventListener('click', e => {
-    answer.textContent = notYetLines[ny++ % notYetLines.length];
-    flowers += 250;
-    countEl.textContent = flowers.toLocaleString('en-US');
-    burstFrom(e.currentTarget, 25);
+    burstFrom(ticket, 80);
   });
 })();
 </script>
