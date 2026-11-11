@@ -169,18 +169,20 @@ section { padding-block: clamp(56px, 9vw, 112px); }
 
 /* Listening: its own quiet, paper-light section between the two night skies */
 .listen {
-  background: var(--petal);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #2c1230 0%, #4a1b3d 50%, #4a1b3d 100%);
   text-align: center;
   font-family: "Lora", Georgia, serif;
 }
-.listen .wrap { display: grid; gap: 26px; justify-items: center; max-width: 820px; }
-.listen .voice { width: min(260px, 70vw); height: auto; color: var(--rose); opacity: 0.85; }
+.listen .wrap { position: relative; display: grid; gap: 26px; justify-items: center; max-width: 820px; }
+.listen .voice { width: min(260px, 70vw); height: auto; color: #ff9fbd; opacity: 0.9; }
 .listen h2 {
   font-family: "Lora", Georgia, serif; font-style: italic; font-weight: 500;
-  font-size: clamp(1.9rem, 4.6vw, 3rem); line-height: 1.25; color: var(--berry); max-width: 22ch;
+  font-size: clamp(1.9rem, 4.6vw, 3rem); line-height: 1.25; color: #fff; max-width: 22ch;
 }
-.listen-body { font-size: clamp(1.1rem, 2.3vw, 1.3rem); line-height: 1.85; color: #6b3a50; max-width: 58ch; }
-.listen-love { font-family: "Lora", Georgia, serif; font-style: italic; font-size: clamp(1.6rem, 3.6vw, 2.2rem); color: var(--rose-deep); }
+.listen-body { font-size: clamp(1.1rem, 2.3vw, 1.3rem); line-height: 1.85; color: #ffe3ea; max-width: 58ch; }
+.listen-love { font-family: "Lora", Georgia, serif; font-style: italic; font-size: clamp(1.6rem, 3.6vw, 2.2rem); color: #ffb8cc; }
 
 .highlight-line {
   max-width: 760px;
@@ -471,6 +473,7 @@ footer a { color: var(--rose-deep); }
   </section>
 
   <section class="listen" aria-labelledby="listen-title">
+    <canvas class="stars" aria-hidden="true"></canvas>
     <div class="wrap">
       <svg class="voice" viewBox="0 0 240 48" aria-hidden="true">
         <g fill="currentColor">
