@@ -169,7 +169,7 @@ section { padding-block: clamp(56px, 9vw, 112px); }
 
 /* Listening: its own quiet, paper-light section between the two night skies */
 .listen {
-  background: linear-gradient(180deg, #fbe9f0 0%, #fff7f9 50%, #f7e3ec 100%);
+  background: var(--petal);
   text-align: center;
   font-family: "Lora", Georgia, serif;
 }
@@ -182,9 +182,36 @@ section { padding-block: clamp(56px, 9vw, 112px); }
 .listen-body { font-size: clamp(1.1rem, 2.3vw, 1.3rem); line-height: 1.85; color: #6b3a50; max-width: 58ch; }
 .listen-love { font-family: "Lora", Georgia, serif; font-style: italic; font-size: clamp(1.6rem, 3.6vw, 2.2rem); color: var(--rose-deep); }
 
+.highlight-line {
+  max-width: 760px;
+  font-family: var(--display); font-style: italic; font-weight: 600;
+  font-size: clamp(1.6rem, 4vw, 2.5rem); line-height: 1.35; color: #fff;
+  padding: clamp(20px, 4vw, 34px) clamp(20px, 4vw, 40px);
+  border: 2px solid rgba(255, 179, 200, 0.75);
+  border-radius: 22px;
+  background: rgba(255, 150, 185, 0.16);
+  box-shadow: 0 0 40px rgba(255, 150, 185, 0.35), inset 0 0 30px rgba(255, 150, 185, 0.12);
+}
+.highlight-line mark {
+  background: #ff8fb0; color: #3a1028; font-style: normal;
+  padding: 0 0.25em; border-radius: 6px;
+}
+.highlight-line strong { color: #ffc2d4; font-weight: 600; }
+.equations { display: grid; gap: 4px; justify-items: center; }
+.equations p {
+  font-family: var(--display); font-weight: 600;
+  font-size: clamp(2.2rem, 7vw, 4.2rem); line-height: 1.15; color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+.equations .op { color: #ff9fbd; margin-inline: 0.18em; }
+.equations .res { font-style: italic; color: #ffc2d4; text-shadow: 0 0 22px rgba(255, 160, 190, 0.7); }
+.equations .ones { font-family: var(--body); font-weight: 700; margin-top: 10px; }
+.equations .for-us { font-family: var(--hand); font-weight: 600; font-size: clamp(1.7rem, 4.5vw, 2.6rem); color: #ffd1de; overflow-wrap: anywhere; }
+
 .goodnight { display: grid; gap: 6px; font-family: var(--hand); font-size: clamp(1.7rem, 4.2vw, 2.4rem); line-height: 1.25; color: #ffe3ea; }
 .goodnight .moon { font-size: 2.2rem; line-height: 1; }
-.love-drawing { display: grid; justify-items: center; gap: 8px; }
+.love-drawing { display: grid; justify-items: center; gap: 8px; margin: 0; }
+.night .wrap > * { min-width: 0; max-width: 100%; }
 .love-drawing svg { width: min(340px, 82vw); height: auto; overflow: visible; }
 .love-drawing .stroke { fill: none; stroke: #ffb3c8; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1400; stroke-dashoffset: 0; }
 .love-drawing.drawing .stroke { animation: draw 3.2s ease forwards; }
@@ -429,7 +456,15 @@ footer a { color: var(--rose-deep); }
       <div class="us-lines">
         <p>Because there is no <em>yours</em> and <em>mine</em> here.</p>
         <p>It's us, and us always.</p>
-        <p class="small">There is no you and I. Both are the same word, because it's us against everything, us with everything, and us through everything.</p>
+      </div>
+
+      <p class="highlight-line">There is no <mark>you</mark> and <mark>I</mark>. Both are the same word, because it's <strong>us against everything</strong>, <strong>us with everything</strong>, and <strong>us through everything</strong>.</p>
+
+      <div class="equations" aria-label="you plus I equals us, you plus I equals one, and one plus one equals one">
+        <p>you <span class="op">+</span> I <span class="op">=</span> <span class="res">us</span></p>
+        <p>you <span class="op">+</span> I <span class="op">=</span> <span class="res">one</span></p>
+        <p class="ones">1 <span class="op">+</span> 1 <span class="op">=</span> <span class="res">1</span></p>
+        <p class="for-us">for meeeee and forrr youuuu tooooooooo ♥</p>
       </div>
 
     </div>
