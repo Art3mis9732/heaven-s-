@@ -378,6 +378,13 @@ section { padding-block: clamp(56px, 9vw, 112px); }
 .pass-sec .wrap { display: grid; gap: 26px; justify-items: center; }
 .pass-sec h2 { font-size: clamp(2.6rem, 7vw, 4.6rem); font-style: italic; font-weight: 500; }
 .pass-sec .lede { color: var(--muted); max-width: 46ch; }
+.pass-sec .hurry {
+  font-weight: 700; color: var(--rose-deep);
+  background: var(--petal); border: 2px solid var(--rose);
+  border-radius: 999px; padding: 10px 20px; max-width: 100%;
+  animation: hurry 1.4s ease-in-out infinite;
+}
+@keyframes hurry { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
 .ticket {
   position: relative;
   width: min(640px, 100%);
@@ -680,7 +687,8 @@ footer a { color: var(--rose-deep); }
     <div class="wrap">
       <p class="eyebrow">One last gift</p>
       <h2 id="pass-title">You earned one free pass</h2>
-      <p class="lede">Use it whenever you want. Whatever you ask for, I will do it.</p>
+      <p class="lede">Whatever you ask for, I will do it.</p>
+      <p class="hurry">⏳ Hurry! This pass expires in 1 day, so use it right now, as fast as you can!</p>
 
       <div class="ticket" id="ticket">
         <div class="ticket-main">
@@ -689,7 +697,7 @@ footer a { color: var(--rose-deep); }
           <p class="terms">Let me do anything you want, and I will do it. No questions, no excuses, no take-backs.</p>
           <dl>
             <div><dt>Holder</dt><dd>Heaven</dd></div>
-            <div><dt>Valid</dt><dd>Forever</dd></div>
+            <div><dt>Valid</dt><dd>1 day only</dd></div>
             <div><dt>Signed</dt><dd>Your husband ♥</dd></div>
           </dl>
         </div>
