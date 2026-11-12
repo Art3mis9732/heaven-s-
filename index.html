@@ -27,6 +27,7 @@
   color-scheme: light;
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
@@ -378,13 +379,33 @@ section { padding-block: clamp(56px, 9vw, 112px); }
 .pass-sec .wrap { display: grid; gap: 26px; justify-items: center; }
 .pass-sec h2 { font-size: clamp(2.6rem, 7vw, 4.6rem); font-style: italic; font-weight: 500; }
 .pass-sec .lede { color: var(--muted); max-width: 46ch; }
-.pass-sec .hurry {
-  font-weight: 700; color: var(--rose-deep);
-  background: var(--petal); border: 2px solid var(--rose);
-  border-radius: 999px; padding: 10px 20px; max-width: 100%;
-  animation: hurry 1.4s ease-in-out infinite;
+.countdown {
+  display: grid; gap: 4px; justify-items: center;
+  background: var(--petal); border: 2px solid var(--rose); border-radius: 22px;
+  padding: 14px clamp(16px, 4vw, 32px); max-width: 100%;
 }
+.countdown .cd-label { font-weight: 700; color: var(--rose-deep); max-width: 40ch; }
+.countdown .cd-time {
+  font-family: var(--body); font-weight: 700; font-variant-numeric: tabular-nums;
+  font-size: clamp(2.4rem, 9vw, 3.6rem); line-height: 1.1; letter-spacing: 0.04em; color: var(--rose-deep);
+  animation: hurry 1s ease-in-out infinite;
+}
+.countdown .cd-units { display: flex; gap: clamp(18px, 6vw, 40px); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.countdown.done { background: var(--blush); border-color: var(--muted); }
+.countdown.done .cd-time { color: var(--muted); animation: none; }
+.countdown.done .cd-label { color: var(--muted); }
 @keyframes hurry { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+.stamp-expired {
+  position: absolute; top: 50%; left: 42%;
+  transform: translate(-50%, -50%) rotate(-14deg) scale(1.4);
+  border: 4px solid #7a4a5c; color: #7a4a5c; border-radius: 10px; padding: 6px 16px;
+  font-weight: 700; letter-spacing: 0.18em; font-size: 1.3rem;
+  opacity: 0; transition: opacity .35s ease, transform .35s ease; pointer-events: none;
+  background: rgba(255, 250, 251, 0.8);
+}
+.ticket.expired { filter: grayscale(0.7); }
+.ticket.expired .stamp-expired { opacity: 1; transform: translate(-50%, -50%) rotate(-14deg) scale(1); }
+.wish-form.locked { opacity: 0.55; }
 .ticket {
   position: relative;
   width: min(640px, 100%);
@@ -688,7 +709,11 @@ footer a { color: var(--rose-deep); }
       <p class="eyebrow">One last gift</p>
       <h2 id="pass-title">You earned one free pass</h2>
       <p class="lede">Whatever you ask for, I will do it.</p>
-      <p class="hurry">⏳ Hurry! This pass expires in 1 day, so use it right now, as fast as you can!</p>
+      <div class="countdown" id="countdown" aria-live="polite">
+        <p class="cd-label" id="cdLabel">⏳ Hurry! Only 2 hours left. Use it right now, as fast as you can!</p>
+        <p class="cd-time" id="cdTime">02:00:00</p>
+        <p class="cd-units" aria-hidden="true"><span>hours</span><span>minutes</span><span>seconds</span></p>
+      </div>
 
       <div class="ticket" id="ticket">
         <div class="ticket-main">
@@ -697,7 +722,7 @@ footer a { color: var(--rose-deep); }
           <p class="terms">Let me do anything you want, and I will do it. No questions, no excuses, no take-backs.</p>
           <dl>
             <div><dt>Holder</dt><dd>Heaven</dd></div>
-            <div><dt>Valid</dt><dd>1 day only</dd></div>
+            <div><dt>Valid</dt><dd>2 hours only</dd></div>
             <div><dt>Signed</dt><dd>Your husband ♥</dd></div>
           </dl>
         </div>
@@ -706,6 +731,7 @@ footer a { color: var(--rose-deep); }
           <span class="unit">free pass</span>
         </div>
         <span class="stamp-used" aria-hidden="true">PROMISED</span>
+        <span class="stamp-expired" aria-hidden="true">EXPIRED</span>
       </div>
 
       <form class="wish-form" id="wishForm" autocomplete="off">
@@ -939,8 +965,51 @@ footer a { color: var(--rose-deep); }
   const answer = document.getElementById('answer');
   const ticket = document.getElementById('ticket');
   const wishInput = document.getElementById('wish');
+
+  /* ---------- 2-hour countdown ----------
+     The 2 hours start the first time the page is opened in this browser and are
+     remembered across reloads. A used pass stops the countdown. */
+  const PASS_MS = 2 * 60 * 60 * 1000;
+  let passStart = Date.now();
+  try {
+    const saved = Number(localStorage.getItem('heaven-pass-start'));
+    if (saved && saved <= Date.now()) passStart = saved;
+    else localStorage.setItem('heaven-pass-start', String(passStart));
+  } catch (e) {}
+  const deadline = passStart + PASS_MS;
+  const cdBox = document.getElementById('countdown');
+  const cdTime = document.getElementById('cdTime');
+  const cdLabel = document.getElementById('cdLabel');
+  const wishForm = document.getElementById('wishForm');
+  const pad = n => String(n).padStart(2, '0');
+  function passExpired() { return !ticket.classList.contains('used') && Date.now() >= deadline; }
+  let cdTimer = null;
+  function tickCountdown() {
+    if (ticket.classList.contains('used')) {
+      cdBox.classList.add('done');
+      cdLabel.textContent = 'Free pass used in time. I will do it. ♥';
+      clearInterval(cdTimer);
+      return;
+    }
+    const left = Math.max(0, deadline - Date.now());
+    const sec = Math.floor(left / 1000);
+    cdTime.textContent = `${pad(Math.floor(sec / 3600))}:${pad(Math.floor(sec / 60) % 60)}:${pad(sec % 60)}`;
+    if (left <= 0) {
+      cdBox.classList.add('done');
+      cdLabel.textContent = 'Time is up. This free pass has expired.';
+      ticket.classList.add('expired');
+      wishForm.classList.add('locked');
+      wishInput.disabled = true;
+      wishForm.querySelector('button').disabled = true;
+      clearInterval(cdTimer);
+    }
+  }
   document.getElementById('wishForm').addEventListener('submit', e => {
     e.preventDefault();
+    if (passExpired()) {
+      answer.textContent = 'Oh no, this free pass has expired. You were too late, my love. ♥';
+      return;
+    }
     const wish = wishInput.value.trim().replace(/[.!?\s]+$/, '');
     if (!wish) {
       answer.textContent = 'Write anything you want first, then press the button.';
@@ -952,6 +1021,7 @@ footer a { color: var(--rose-deep); }
     ambient = 160;
     for (let i = 0; i < 6; i++) setTimeout(() => burst(Math.random() * W, H * 0.4, 50), i * 180);
     burstFrom(ticket, 80);
+    tickCountdown();
     saveWish(wish);
   });
 
@@ -980,6 +1050,9 @@ footer a { color: var(--rose-deep); }
       answer.textContent = `“${old}.” Consider it done, my love. I will do it. ♥`;
     }
   } catch (e) {}
+
+  tickCountdown();
+  cdTimer = setInterval(tickCountdown, 1000);
 
   (async () => {
     if (!window.claude || !window.claude.use) return;
