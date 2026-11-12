@@ -391,6 +391,8 @@ section { padding-block: clamp(56px, 9vw, 112px); }
   animation: hurry 1s ease-in-out infinite;
 }
 .countdown .cd-units { display: flex; gap: clamp(18px, 6vw, 40px); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.countdown .cd-warn { margin-top: 6px; font-family: var(--hand); font-size: clamp(1.35rem, 4vw, 1.7rem); line-height: 1.2; color: var(--rose-deep); max-width: 30ch; }
+.countdown.done .cd-warn { display: none; }
 .countdown.done { background: var(--blush); border-color: var(--muted); }
 .countdown.done .cd-time { color: var(--muted); animation: none; }
 .countdown.done .cd-label { color: var(--muted); }
@@ -713,6 +715,7 @@ footer a { color: var(--rose-deep); }
         <p class="cd-label" id="cdLabel">⏳ Hurry! Only 2 hours left. Use it right now, as fast as you can!</p>
         <p class="cd-time" id="cdTime">02:00:00</p>
         <p class="cd-units" aria-hidden="true"><span>hours</span><span>minutes</span><span>seconds</span></p>
+        <p class="cd-warn" id="cdWarn">If you don't use your free pass, that means you don't love me! 🥺</p>
       </div>
 
       <div class="ticket" id="ticket">
@@ -996,7 +999,8 @@ footer a { color: var(--rose-deep); }
     cdTime.textContent = `${pad(Math.floor(sec / 3600))}:${pad(Math.floor(sec / 60) % 60)}:${pad(sec % 60)}`;
     if (left <= 0) {
       cdBox.classList.add('done');
-      cdLabel.textContent = 'Time is up. This free pass has expired.';
+      cdLabel.textContent = 'Time is up. This free pass has expired… and you didn\'t use it, so that means you don\'t love me. 😢';
+      answer.textContent = 'You didn\'t do anything… so you don\'t love me. 💔';
       ticket.classList.add('expired');
       wishForm.classList.add('locked');
       wishInput.disabled = true;
@@ -1007,7 +1011,7 @@ footer a { color: var(--rose-deep); }
   document.getElementById('wishForm').addEventListener('submit', e => {
     e.preventDefault();
     if (passExpired()) {
-      answer.textContent = 'Oh no, this free pass has expired. You were too late, my love. ♥';
+      answer.textContent = 'Too late! The free pass expired, and you didn\'t use it… so you don\'t love me. 💔';
       return;
     }
     const wish = wishInput.value.trim().replace(/[.!?\s]+$/, '');
